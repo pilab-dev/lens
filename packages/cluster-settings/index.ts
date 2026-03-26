@@ -1,3 +1,4 @@
+import React from "react";
 import { getInjectionToken } from "@ogre-tools/injectable";
 
 type ClusterPreferences = {

@@ -2,7 +2,6 @@
  * Copyright (c) OpenLens Maintainers. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
-import { iter } from "@openlens/utilities";
 import { getInjectable } from "@ogre-tools/injectable";
 import { action, comparer } from "mobx";
 import catalogCatalogEntityInjectable from "../../../../common/catalog-entities/general-catalog-entities/implementations/catalog-catalog-entity.injectable";
@@ -71,18 +70,16 @@ const hotbarsPersistentStorageInjectable = getInjectable({
           activeHotbarId.set(data.activeHotbarId);
         }
 
-        const firstHotbarId = iter.first(state.values())?.id;
+        const firstHotbarId = [...state.values()][0]?.id;
 
         if (!activeHotbarId.get()) {
           activeHotbarId.set(firstHotbarId);
-        } else if (!iter.find(state.values(), hotbar => hotbar.id === activeHotbarId.get())) {
+        } else if (![...state.values()].some(hotbar => hotbar.id === activeHotbarId.get())) {
           activeHotbarId.set(firstHotbarId);
         }
       }),
       toJSON: () => ({
-        hotbars: iter.chain(state.values())
-          .map(hotbar => hotbar.toJSON())
-          .toArray(),
+        hotbars: [...state.values()].map(hotbar => hotbar.toJSON()),
         activeHotbarId: activeHotbarId.get(),
       }),
     });

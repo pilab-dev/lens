@@ -8,7 +8,7 @@ import { isEqual } from "lodash";
 import type { ObservableMap } from "mobx";
 import { runInAction, action, computed, toJS, observable, reaction, when } from "mobx";
 import { broadcastMessage, ipcMainOn, ipcRendererOn, ipcMainHandle } from "../../common/ipc";
-import { isDefined, iter } from "@openlens/utilities";
+import { isDefined } from "@openlens/utilities";
 import type { ExternalInstalledExtension, InstalledExtension, LensExtensionConstructor, LensExtensionId, BundledExtension, BundledInstalledExtension, LegacyLensExtension } from "@openlens/legacy-extensions";
 import type { LensExtension } from "../lens-extension";
 import { extensionLoaderFromMainChannel, extensionLoaderFromRendererChannel } from "../../common/ipc/extension-handling";
@@ -58,10 +58,15 @@ export class ExtensionLoader {
    */
   protected readonly nonInstancesByName = observable.set<string>();
 
-  protected readonly instancesByName = computed(() => new Map((
-    iter.chain(this.dependencies.extensionInstances.entries())
-      .map(([, instance]) => [instance.name, instance])
-  )));
+  protected readonly instancesByName = computed(() => {
+    const map = new Map<string, LegacyLensExtension>();
+
+    for (const [, instance] of this.dependencies.extensionInstances.entries()) {
+      map.set(instance.name, instance);
+    }
+
+    return map;
+  });
 
   private readonly onRemoveExtensionId = new EventEmitter<[string]>();
 

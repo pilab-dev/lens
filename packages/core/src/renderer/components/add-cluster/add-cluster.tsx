@@ -14,7 +14,7 @@ import React from "react";
 import * as uuid from "uuid";
 import { loadConfigFromString, splitConfig } from "../../../common/kube-helpers";
 import { docsUrl } from "../../../common/vars";
-import { isDefined, iter } from "@openlens/utilities";
+import { isDefined } from "@openlens/utilities";
 import { Button } from "@openlens/button";
 import type { ShowNotification } from "../notifications";
 import { SettingLayout } from "../layout/setting-layout";
@@ -73,7 +73,7 @@ class NonInjectedAddCluster extends React.Component<Dependencies> {
   @computed get allErrors(): string[] {
     return [
       ...this.errors,
-      ...iter.map(this.kubeContexts.values(), ({ error }) => error),
+      ...[...this.kubeContexts.values()].map(({ error }) => error),
     ].filter(isDefined);
   }
 

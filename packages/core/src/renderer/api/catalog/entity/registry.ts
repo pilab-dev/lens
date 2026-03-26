@@ -3,11 +3,11 @@
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
 
+import type { IComputedValue } from "mobx";
 import { computed, observable, makeObservable, action } from "mobx";
 import { ipcRendererOn } from "../../../../common/ipc";
 import type { CatalogCategory, CatalogEntity, CatalogEntityData, CatalogCategoryRegistry, CatalogEntityKindData } from "../../../../common/catalog";
 import "../../../../common/catalog-entities";
-import { iter } from "@openlens/utilities";
 import type { Disposer } from "@openlens/utilities";
 import { once } from "lodash";
 import { CatalogRunEvent } from "../../../../common/catalog/catalog-run-event";
@@ -149,16 +149,16 @@ export class CatalogEntityRegistry {
     this.processRawEntities();
 
     return Array.from(this._entities.values());
-  });
+  }) as unknown as IComputedValue<CatalogEntity[]>;
 
-  @computed get filteredItems() {
-    return Array.from(
-      iter.reduce(
-        this.filters,
-        iter.filter,
-        this.items.get().values(),
-      ),
-    );
+  @computed get filteredItems(): CatalogEntity[] {
+    let items = [...this.items.get()];
+
+    for (const filter of this.filters) {
+      items = items.filter(filter);
+    }
+
+    return items;
   }
 
   @computed get entities(): Map<string, CatalogEntity> {

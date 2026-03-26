@@ -135,7 +135,7 @@ class NonInjectedCatalog extends React.Component<Dependencies> {
         }
       }, { fireImmediately: true }),
       // If active category is filtered out, automatically switch to the first category
-      reaction(() => [...catalogCategoryRegistry.filteredItems], (categories) => {
+      reaction(() => [...catalogCategoryRegistry.filteredItems] as CatalogCategory[], (categories) => {
         const currentCategory = catalogEntityStore.activeCategory.get();
         const someCategory = categories[0];
 

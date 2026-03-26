@@ -16,10 +16,12 @@
   ],
   "scripts": {
     "clean": "rimraf dist/",
-    "build": "lens-webpack-build"
+    "build": "webpack"
   },
   "devDependencies": {
     "@openlens/webpack": "^6.5.0",
+    "@types/react": "^17.0.45",
+    "react": "^17.0.2",
     "rimraf": "^4.4.1"
   },
   "peerDependencies": {

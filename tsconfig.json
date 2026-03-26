@@ -10,6 +10,7 @@
       "DOM.Iterable"
     ],
     "moduleResolution": "Node",
+    "downlevelIteration": true,
     "sourceMap": true,
     "strict": true,
     "noImplicitAny": true,
@@ -21,10 +22,10 @@
     "skipLibCheck": true,
     "allowJs": false,
     "esModuleInterop": true,
-    "importsNotUsedAsValues": "error",
+    "ignoreDeprecations": "6.0",
     "traceResolution": false,
     "resolveJsonModule": true,
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": true
   },
   "ts-node": {
     "transpileOnly": true,
@@ -33,6 +34,6 @@
     }
   },
   "exclude": [
-    "node_modules",
+    "node_modules"
   ]
 }

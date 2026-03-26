@@ -7,7 +7,7 @@ import { computed, makeObservable, observable, reaction } from "mobx";
 import { disposeOnUnmount, observer } from "mobx-react";
 import React from "react";
 import { Notice } from "../../../../../../renderer/components/extensions/notice";
-import { iter, tuple } from "@openlens/utilities";
+import { tuple } from "@openlens/utilities";
 import { SubTitle } from "../../../../../../renderer/components/layout/sub-title";
 import { PathPicker } from "../../../../../../renderer/components/path-picker/path-picker";
 import { Spinner } from "../../../../../../renderer/components/spinner";
@@ -45,12 +45,12 @@ class NonInjectedKubeconfigSync extends React.Component<Dependencies> {
   }
 
   async componentDidMount() {
-    const mapEntries = await Promise.all(
-      iter.map(
-        this.props.state.syncKubeconfigEntries,
-        ([filePath]) => this.props.discoverKubeconfigSyncKind(filePath),
-      ),
-    );
+    const mapEntries: [string, SyncKind][] = [];
+
+    for (const [filePath] of this.props.state.syncKubeconfigEntries) {
+      const result = await this.props.discoverKubeconfigSyncKind(filePath);
+      mapEntries.push(result);
+    }
 
     this.syncs.replace(mapEntries);
     this.loaded = true;

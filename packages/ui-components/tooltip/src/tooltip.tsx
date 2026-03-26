@@ -152,7 +152,7 @@ class DefaultedTooltip extends React.Component<TooltipProps & typeof defaultProp
       <div
         className={className}
         style={style}
-        ref={(elem) => (this.elem = elem)}
+        ref={(elem) => { this.elem = elem; }}
         role="tooltip"
         data-testid={this.props["data-testid"]}
       >

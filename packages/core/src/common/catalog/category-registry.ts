@@ -5,7 +5,7 @@
 
 import { action, computed, observable, makeObservable } from "mobx";
 import { once } from "lodash";
-import { iter, getOrInsertMap, strictSet } from "@openlens/utilities";
+import { getOrInsertMap, strictSet } from "@openlens/utilities";
 import type { Disposer } from "@openlens/utilities";
 import type { CatalogCategory, CatalogEntityData, CatalogEntityKindData } from "./catalog-entity";
 
@@ -34,22 +34,28 @@ export class CatalogCategoryRegistry {
     };
   }
 
-  getById(id: string) {
-    return iter.find(this.categories.values(), (category) => category.getId() === id);
+  getById(id: string): CatalogCategory | undefined {
+    for (const category of this.categories.values()) {
+      if (category.getId() === id) {
+        return category;
+      }
+    }
+
+    return undefined;
   }
 
-  @computed get items() {
+  @computed get items(): CatalogCategory[] {
     return Array.from(this.categories);
   }
 
-  @computed get filteredItems() {
-    return Array.from(
-      iter.reduce(
-        this.filters,
-        iter.filter,
-        this.items.values(),
-      ),
-    );
+  @computed get filteredItems(): CatalogCategory[] {
+    let filtered = [...this.items];
+
+    for (const filter of this.filters) {
+      filtered = filtered.filter(filter);
+    }
+
+    return filtered;
   }
 
 

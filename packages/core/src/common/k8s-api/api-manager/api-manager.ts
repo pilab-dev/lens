@@ -6,11 +6,11 @@
 import type { KubeObjectStore } from "../kube-object.store";
 
 import type { IComputedValue } from "mobx";
-import { autorun,  action, observable } from "mobx";
+import { autorun, action, observable } from "mobx";
 import type { KubeApi } from "../kube-api";
 import type { KubeObject, ObjectReference } from "@openlens/kube-object";
 import { parseKubeApi, createKubeApiURL } from "../kube-api-parse";
-import { getOrInsertWith, iter } from "@openlens/utilities";
+import { getOrInsertWith } from "@openlens/utilities";
 import type { CreateCustomResourceStore } from "./create-custom-resource-store.injectable";
 
 export type RegisterableStore<Store> = Store extends KubeObjectStore<any, any, any>
@@ -39,14 +39,15 @@ export class ApiManager {
   private readonly apis = observable.map<string, KubeApi>();
 
   constructor(private readonly dependencies: ApiManagerDependencies) {
-    // NOTE: this is done to preserve the old behaviour of an API being discoverable using all previous apiBases
     autorun(() => {
-      const apis = iter.chain(this.dependencies.apis.get().values())
-        .concat(this.externalApis.values());
+      const allApis: KubeApi[] = [
+        ...this.dependencies.apis.get().values(),
+        ...this.externalApis.values(),
+      ];
       const removedApis = new Set(this.apis.values());
-      const newState = new Map(this.apis);
+      const newState = new Map<string, KubeApi>(this.apis);
 
-      for (const api of apis) {
+      for (const api of allApis) {
         removedApis.delete(api);
         newState.set(api.apiBase, api);
       }
@@ -71,7 +72,12 @@ export class ApiManager {
 
   getApi(pathOrCallback: string | FindApiCallback) {
     if (typeof pathOrCallback === "function") {
-      return iter.find(this.apis.values(), pathOrCallback);
+      for (const api of this.apis.values()) {
+        if (pathOrCallback(api)) {
+          return api;
+        }
+      }
+      return undefined;
     }
 
     const parsedApi = parseKubeApi(pathOrCallback);
@@ -138,7 +144,7 @@ export class ApiManager {
   /**
    * @deprecated use an actual cast instead of hiding it with this unused type param
    */
-  getStore<Store extends KubeObjectStore>(api: string | KubeApi): Store | undefined ;
+  getStore<Store extends KubeObjectStore>(api: string | KubeApi): Store | undefined;
   getStore(apiOrBase: string | KubeApi | undefined): KubeObjectStore | undefined {
     if (!apiOrBase) {
       return undefined;
@@ -154,9 +160,10 @@ export class ApiManager {
       return undefined;
     }
 
-    const defaultResult = iter.chain(this.dependencies.stores.get().values())
-      .concat(this.externalStores.values())
-      .find(store => store.api.apiBase === api.apiBase);
+    const defaultResult = [
+      ...this.dependencies.stores.get().values(),
+      ...this.externalStores.values(),
+    ].find(store => store.api.apiBase === api.apiBase);
 
     if (defaultResult) {
       return defaultResult;

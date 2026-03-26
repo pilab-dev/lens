@@ -31,9 +31,9 @@
     "lint:fix": "lens-lint --fix"
   },
   "devDependencies": {
-    "@openlens/eslint-config": "^6.5.0",
-    "@openlens/jest": "^6.5.0",
-    "@openlens/typescript": "^6.5.0",
-    "@openlens/webpack": "^6.5.0"
+    "@openlens/eslint-config": "workspace:*",
+    "@openlens/jest": "workspace:*",
+    "@openlens/typescript": "workspace:*",
+    "@openlens/webpack": "workspace:*"
   }
 }

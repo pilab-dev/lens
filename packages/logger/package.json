@@ -41,6 +41,7 @@
     "@openlens/eslint-config": "^6.5.0",
     "@openlens/jest": "^6.5.0",
     "@openlens/react-testing-library-discovery": "^1.0.0",
-    "@openlens/webpack": "^6.5.0"
+    "@openlens/webpack": "^6.5.0",
+    "@types/node": "^16.18.25"
   }
 }

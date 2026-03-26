@@ -6,7 +6,6 @@
 import { action, computed, type IComputedValue, type IObservableArray, makeObservable, observable } from "mobx";
 import type { CatalogEntity } from "../../common/catalog";
 import type { HasCategoryForEntity } from "../../common/catalog/has-category-for-entity.injectable";
-import { iter } from "@openlens/utilities";
 
 interface Dependencies {
   readonly hasCategoryForEntity: HasCategoryForEntity;
@@ -32,12 +31,13 @@ export class CatalogEntityRegistry {
   }
 
   @computed get items(): CatalogEntity[] {
-    return Array.from(
-      iter.filter(
-        iter.flatMap(this.sources.values(), source => source.get()),
-        entity => this.dependencies.hasCategoryForEntity(entity),
-      ),
-    );
+    const allEntities: CatalogEntity[] = [];
+
+    for (const source of this.sources.values()) {
+      allEntities.push(...source.get());
+    }
+
+    return allEntities.filter(entity => this.dependencies.hasCategoryForEntity(entity));
   }
 
   findById(id: string): CatalogEntity | undefined {

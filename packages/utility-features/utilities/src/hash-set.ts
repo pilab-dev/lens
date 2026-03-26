@@ -75,8 +75,8 @@ export class HashSet<T> implements Set<T> {
 
   entries(): IterableIterator<[T, T]> {
     let nextIndex = 0;
-    const keys = Array.from(this.keys());
-    const values = Array.from(this.values());
+    const keys = [...this.keys()];
+    const values = [...this.values()];
 
     return makeIterableIterator<[T, T]>({
       next() {
@@ -95,7 +95,7 @@ export class HashSet<T> implements Set<T> {
 
   values(): IterableIterator<T> {
     let nextIndex = 0;
-    const observableValues = Array.from(this.#hashmap.values());
+    const observableValues = [...this.#hashmap.values()];
 
     return makeIterableIterator<T>({
       next: () => {
@@ -198,8 +198,8 @@ export class ObservableHashSet<T> implements Set<T>, IInterceptable<ISetWillChan
 
   entries(): IterableIterator<[T, T]> {
     let nextIndex = 0;
-    const keys = Array.from(this.keys());
-    const values = Array.from(this.values());
+    const keys = [...this.keys()];
+    const values = [...this.values()];
 
     return makeIterableIterator<[T, T]>({
       next() {
@@ -218,7 +218,7 @@ export class ObservableHashSet<T> implements Set<T>, IInterceptable<ISetWillChan
 
   values(): IterableIterator<T> {
     let nextIndex = 0;
-    const observableValues = Array.from(this.#hashmap.values());
+    const observableValues = [...this.#hashmap.values()];
 
     return makeIterableIterator<T>({
       next: () => {

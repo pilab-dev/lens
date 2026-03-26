@@ -33,9 +33,9 @@
     "lint:fix": "lens-lint --fix"
   },
   "peerDependencies": {
-    "@openlens/button": "^1.0.0-alpha.5",
-    "@openlens/routing": "^1.0.0-alpha.5",
-    "@openlens/utilities": "^1.0.0-alpha.1",
+    "@openlens/button": "workspace:*",
+    "@openlens/routing": "workspace:*",
+    "@openlens/utilities": "workspace:*",
     "@ogre-tools/injectable": "^16.1.0",
     "@ogre-tools/injectable-react": "^16.1.0",
     "auto-bind": "^4.0.0",
@@ -49,9 +49,9 @@
   },
   "devDependencies": {
     "@async-fn/jest": "^1.6.4",
-    "@openlens/eslint-config": "^6.5.0",
-    "@openlens/react-testing-library-discovery": "^1.0.0",
-    "@openlens/webpack": "^6.5.0",
+    "@openlens/eslint-config": "workspace:*",
+    "@openlens/react-testing-library-discovery": "workspace:*",
+    "@openlens/webpack": "workspace:*",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.5.0"
   }

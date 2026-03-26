@@ -2,11 +2,10 @@
  * Copyright (c) OpenLens Maintainers. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
-import { iter } from "@openlens/utilities";
 import { getInjectable } from "@ogre-tools/injectable";
 import { comparer, action } from "mobx";
 import { clusterStoreMigrationInjectionToken } from "./migration-token";
-import type { ClusterId, ClusterModel } from "../../../../common/cluster-types";
+import type { ClusterId, ClusterModel, UpdateClusterModel } from "../../../../common/cluster-types";
 import { Cluster } from "../../../../common/cluster/cluster";
 import { loggerInjectionToken } from "@openlens/logger";
 import createPersistentStorageInjectable from "../../../../common/persistent-storage/create.injectable";
@@ -39,10 +38,10 @@ const clustersPersistentStorageInjectable = getInjectable({
 
         for (const clusterModel of clusters) {
           try {
-            let cluster = currentClusters.get(clusterModel.id);
+            let cluster: Cluster | undefined = currentClusters.get(clusterModel.id) as Cluster | undefined;
 
             if (cluster) {
-              cluster.updateModel(clusterModel);
+              cluster.updateModel(clusterModel as UpdateClusterModel);
             } else {
               cluster = new Cluster(clusterModel);
             }
@@ -56,9 +55,7 @@ const clustersPersistentStorageInjectable = getInjectable({
         clustersState.replace(newClusters);
       }),
       toJSON: () => ({
-        clusters: iter.chain(clustersState.values())
-          .map(cluster => cluster.toJSON())
-          .toArray(),
+        clusters: [...clustersState.values()].map(cluster => cluster.toJSON()),
       }),
     });
   },

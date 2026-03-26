@@ -83,11 +83,11 @@ class NonInjectedRoleBindingDialog extends React.Component<RoleBindingDialogProp
       kind: "ServiceAccount",
       namespace: sa.getNs(),
     }));
-    const users: Subject[] = Array.from(this.selectedUsers, user => ({
+    const users: Subject[] = Array.from(this.selectedUsers, (user: string): Subject => ({
       name: user,
       kind: "User",
     }));
-    const groups: Subject[] = Array.from(this.selectedGroups, group => ({
+    const groups: Subject[] = Array.from(this.selectedGroups, (group: string): Subject => ({
       name: group,
       kind: "Group",
     }));
@@ -244,7 +244,7 @@ class NonInjectedRoleBindingDialog extends React.Component<RoleBindingDialogProp
           placeholder="Bind to User Account ..."
           add={(newUser) => this.selectedUsers.add(newUser)}
           items={Array.from(this.selectedUsers)}
-          remove={({ oldItem }) => this.selectedUsers.delete(oldItem)}
+          remove={({ oldItem }) => this.selectedUsers.delete(oldItem as string)}
         />
 
         <b>Groups</b>
@@ -252,7 +252,7 @@ class NonInjectedRoleBindingDialog extends React.Component<RoleBindingDialogProp
           placeholder="Bind to User Group ..."
           add={(newGroup) => this.selectedGroups.add(newGroup)}
           items={Array.from(this.selectedGroups)}
-          remove={({ oldItem }) => this.selectedGroups.delete(oldItem)}
+          remove={({ oldItem }) => this.selectedGroups.delete(oldItem as string)}
         />
 
         <b>Service Accounts</b>

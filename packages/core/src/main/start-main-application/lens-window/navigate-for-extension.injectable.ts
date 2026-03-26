@@ -3,13 +3,13 @@
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
 import { getInjectable } from "@ogre-tools/injectable";
-import { iter } from "@openlens/utilities";
 import clusterFramesInjectable from "../../../common/cluster-frames.injectable";
 import showApplicationWindowInjectable from "./show-application-window.injectable";
 import getCurrentApplicationWindowInjectable from "./application-window/get-current-application-window.injectable";
 import assert from "assert";
 import type { NavigateForExtensionArgs } from "../../../features/extensions/navigate/common/channel";
 import { navigateForExtensionChannel } from "../../../features/extensions/navigate/common/channel";
+import type { ClusterFrameInfo } from "../../../common/cluster-frames.injectable";
 
 export type NavigateForExtension = (
   extId: string,
@@ -38,9 +38,8 @@ const navigateForExtensionInjectable = getInjectable({
 
       assert(applicationWindow);
 
-      const frameInfo = iter.find(
-        clusterFrames.values(),
-        (frameInfo) => frameInfo.frameId === frameId,
+      const frameInfo: ClusterFrameInfo | undefined = [...clusterFrames.values()].find(
+        (info) => info.frameId === frameId,
       );
 
       applicationWindow.send({

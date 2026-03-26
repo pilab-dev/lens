@@ -11,7 +11,8 @@
       "DOM.Iterable"
     ],
 
-    "moduleResolution": "node16",
+    "moduleResolution": "Node",
+    "downlevelIteration": true,
     "sourceMap": true,
     "strict": true,
     "noImplicitAny": true,
@@ -23,7 +24,7 @@
     "allowJs": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "importsNotUsedAsValues": "error",
+    "ignoreDeprecations": "6.0",
     "traceResolution": false,
     "resolveJsonModule": true,
     "useDefineForClassFields": true,

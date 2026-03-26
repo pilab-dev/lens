@@ -25,8 +25,8 @@
     "test:unit": "jest --coverage --runInBand"
   },
   "peerDependencies": {
-    "@openlens/test-utils": "^1.0.0-alpha.3",
-    "@openlens/utilities": "^1.0.0-alpha.1",
+    "@openlens/test-utils": "workspace:*",
+    "@openlens/utilities": "workspace:*",
     "@ogre-tools/fp": "^16.1.0",
     "@ogre-tools/injectable": "^16.1.0",
     "type-fest": "^2.19.0",
@@ -34,7 +34,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@openlens/webpack": "^6.5.0",
+    "@openlens/webpack": "workspace:*",
     "@types/uuid": "^9.0.1"
   }
 }

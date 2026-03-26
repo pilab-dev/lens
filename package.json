@@ -1,47 +1,63 @@
 {
   "name": "lens-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/**/*",
-    "open-lens"
-  ],
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "all:reinstall": "npm run clean:node_modules && npm run all:install",
-    "all:install": "npx --yes --package npm@^9.6.7 npm install",
+    "all:reinstall": "pnpm run clean:node_modules && pnpm install",
+    "all:install": "pnpm install",
     "adr:create": "echo \"What is the title?\"; read title; adr new \"$title\"",
     "adr:change-status": "echo \"Decision number?:\"; read decision; adr status $decision",
     "adr:update-readme": "adr update",
     "adr:list": "adr list",
-    "build": "lerna run --stream build",
-    "build:app": "lerna run --stream build:app",
-    "build:docs": "lerna run --stream build:docs",
-    "clean": "lerna run clean --stream",
-    "clean:node_modules": "lerna clean -y && rimraf node_modules",
-    "dev": "cross-env NODE_ENV=development lerna run build --stream --skip-nx-cache",
-    "postdev": "lerna watch -- lerna run build --stream --include-dependents --scope \\$LERNA_PACKAGE_NAME",
-    "prestart-dev": "cd ./open-lens && npm run build:tray-icons && npm run download:binaries",
-    "start-dev": "lerna run start",
-    "lint": "lerna run lint --stream --no-bail",
-    "lint:fix": "lerna run lint:fix --stream",
+    "build": "turbo run build",
+    "build:app": "turbo run build:app",
+    "build:docs": "turbo run build:docs",
+    "clean": "turbo run clean",
+    "clean:node_modules": "rm -rf node_modules packages/*/node_modules open-lens/node_modules",
+    "dev": "cross-env NODE_ENV=development turbo run build",
+    "prestart-dev": "cd ./open-lens && pnpm run build:tray-icons && pnpm run download:binaries",
+    "start-dev": "turbo run start",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "mkdocs:serve-local": "docker build -t mkdocs-serve-local:latest mkdocs/ && docker run --rm -it -p 8000:8000 -v ${PWD}:/docs mkdocs-serve-local:latest",
     "mkdocs:verify": "docker build -t mkdocs-serve-local:latest mkdocs/ && docker run --rm -v ${PWD}:/docs mkdocs-serve-local:latest build --strict",
-    "test:unit": "lerna run --stream test:unit --no-bail",
+    "test:unit": "turbo run test:unit",
     "test:unit:watch": "jest --watch",
-    "test:integration": "lerna run --stream test:integration --no-bail",
+    "test:integration": "turbo run test:integration",
     "bump-version": "lerna version --no-git-tag-version --no-push",
-    "precreate-release-pr": "npm run --workspace @openlens/release-tool build",
-    "create-release-pr": "npm run --workspace @openlens/release-tool create"
-  },
-  "overrides": {
-    "underscore": "^1.12.1",
-    "react": "^17",
-    "@types/react": "^17"
+    "precreate-release-pr": "pnpm --filter @openlens/release-tool build",
+    "create-release-pr": "pnpm --filter @openlens/release-tool create"
   },
   "devDependencies": {
-    "@ogre-tools/linkable": "^16.1.0",
-    "adr": "^1.4.3",
-    "cross-env": "^7.0.3",
-    "lerna": "^6.6.1",
-    "rimraf": "^4.4.1"
+    "@ogre-tools/linkable": "^19.0.0",
+    "@openlens/webpack": "workspace:*",
+    "adr": "^1.5.2",
+    "cross-env": "^10.1.0",
+    "lerna": "^9.0.7",
+    "rimraf": "^6.1.3",
+    "turbo": "^2.8.20",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^7.0.2"
+  },
+  "pnpm": {
+  "overrides": {
+    "underscore": "^1.12.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "4.9.5"
+  },
+    "onlyBuiltDependencies": [],
+    "ignoreEngines": true,
+    "shamefullyHoist": true,
+    "publicHoistPattern": [
+      "*"
+    ],
+    "link-workspace-packages": true
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

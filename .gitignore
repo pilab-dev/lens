@@ -9,3 +9,6 @@ lerna-debug.log
 coverage
 dist
 builder/
+
+# ignore turbo's output
+.turbo

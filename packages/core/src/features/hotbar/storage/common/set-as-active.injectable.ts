@@ -2,7 +2,6 @@
  * Copyright (c) OpenLens Maintainers. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
-import { iter } from "@openlens/utilities";
 import { getInjectable } from "@ogre-tools/injectable";
 import { action } from "mobx";
 import activeHotbarIdInjectable from "./active-id.injectable";
@@ -19,7 +18,7 @@ const setAsActiveHotbarInjectable = getInjectable({
 
     return action((desc) => {
       if (typeof desc === "number") {
-        const hotbar = iter.nth(hotbarsState.values(), desc);
+        const hotbar = [...hotbarsState.values()][desc];
 
         if (hotbar) {
           activeHotbarId.set(hotbar.id);

@@ -256,7 +256,20 @@ export default getGlobalOverride(electronAppInjectable, () => {
       removeSwitch: (key) => chromiumArgs.delete(key),
     } as Electron.CommandLine;
 
-    getLoginItemSettings() {
+    resolveProxy(url: string): Promise<string> {
+      void url;
+      throw new Error("Method not implemented.");
+    }
+    setClientCertRequestPasswordHandler(handler: (clientCertRequestParams: Electron.ClientCertRequestParams) => Promise<string>): void {
+      void handler;
+      throw new Error("Method not implemented.");
+    }
+    setProxy(config: Electron.ProxyConfig): Promise<void> {
+      void config;
+      throw new Error("Method not implemented.");
+    }
+
+    getLoginItemSettings(): Electron.LoginItemSettings {
       return {
         executableWillLaunchAtLogin: false,
         openAtLogin: false,
@@ -265,6 +278,7 @@ export default getGlobalOverride(electronAppInjectable, () => {
         wasOpenedAsHidden: false,
         restoreState: false,
         launchItems: [],
+        status: "not-registered",
       };
     }
   };

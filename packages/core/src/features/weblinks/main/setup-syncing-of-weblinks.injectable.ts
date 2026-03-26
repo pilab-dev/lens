@@ -8,9 +8,8 @@ import weblinkVerificationStartableStoppableInjectable from "./weblink-verificat
 import catalogEntityRegistryInjectable from "../../../main/catalog/entity-registry.injectable";
 import weblinkVerificationsInjectable from "./weblink-verifications.injectable";
 import { computed } from "mobx";
-import { iter } from "@openlens/utilities";
 
-const setupSyncingOfWeblinksInjectable = getInjectable({
+const setupSyncingOfWiklinksInjectable = getInjectable({
   id: "setup-syncing-of-weblinks",
 
   instantiate: (di) => ({
@@ -20,15 +19,13 @@ const setupSyncingOfWeblinksInjectable = getInjectable({
       const weblinkVerifications = di.inject(weblinkVerificationsInjectable);
 
       weblinkVerificationStartableStoppable.start();
-      catalogEntityRegistry.addComputedSource("weblinks", computed(() => (
-        iter.chain(weblinkVerifications.values())
-          .map(([weblink]) => weblink)
-          .toArray()
-      )));
+      catalogEntityRegistry.addComputedSource("weblinks", computed(() =>
+        [...weblinkVerifications.values()].map(([weblink]) => weblink)
+      ));
     },
   }),
 
   injectionToken: onLoadOfApplicationInjectionToken,
 });
 
-export default setupSyncingOfWeblinksInjectable;
+export default setupSyncingOfWiklinksInjectable;

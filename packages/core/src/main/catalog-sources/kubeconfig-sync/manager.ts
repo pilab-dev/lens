@@ -7,7 +7,6 @@ import type { IComputedValue, ObservableMap } from "mobx";
 import { action, observable, computed, makeObservable, observe } from "mobx";
 import type { CatalogEntity } from "../../../common/catalog";
 import type { Disposer } from "@openlens/utilities";
-import { iter } from "@openlens/utilities";
 import type { Logger } from "@openlens/logger";
 import type { WatchKubeconfigFileChanges } from "./watch-file-changes.injectable";
 import type { KubeconfigSyncValue } from "../../../features/user-preferences/common/preferences-helpers";
@@ -27,24 +26,20 @@ export class KubeconfigSyncManager {
     makeObservable(this);
   }
 
-  public readonly source = computed(() => {
-    /**
-     * This prevents multiple overlapping syncs from leading to multiple entities with the same IDs
-     */
+  public readonly source: IComputedValue<CatalogEntity[]> = computed(() => {
     const seenIds = new Set<string>();
+    const allEntities: CatalogEntity[] = [];
 
-    return (
-      iter.chain(this.sources.values())
-        .flatMap(([entities]) => entities.get())
-        .filter(entity => {
-          const alreadySeen = seenIds.has(entity.getId());
-
+    for (const [, source] of this.sources.entries()) {
+      for (const entity of source[0].get()) {
+        if (!seenIds.has(entity.getId())) {
           seenIds.add(entity.getId());
+          allEntities.push(entity);
+        }
+      }
+    }
 
-          return !alreadySeen;
-        })
-        .collect(items => [...items])
-    );
+    return allEntities;
   });
 
   @action

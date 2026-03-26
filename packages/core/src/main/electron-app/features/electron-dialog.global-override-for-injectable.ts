@@ -19,8 +19,9 @@ export default getGlobalOverride(electronDialogInjectable, () => ({
     filePaths: [],
   }),
   showOpenDialogSync: () => [],
-  showSaveDialog: async () => ({
+  showSaveDialog: async (): Promise<Electron.SaveDialogReturnValue> => ({
     canceled: true,
+    filePath: "",
   }),
   showSaveDialogSync: () => "",
 }));

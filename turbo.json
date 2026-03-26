@@ -1,0 +1,39 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT", "tsconfig.json", "tsconfig/**/*.json", "src/**"],
+      "outputs": ["dist/**", "build/**", "static/**", "lib/**", "coverage/**"]
+    },
+    "build:app": {
+      "dependsOn": ["^build"]
+    },
+    "build:docs": {
+      "dependsOn": ["^build"]
+    },
+    "test:unit": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT", "src/**", "jest.config.*"],
+      "outputs": ["coverage/**"]
+    },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT", "src/**", "integration/**"],
+      "outputs": ["coverage/**"]
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "lint:fix": {
+      "dependsOn": ["^build"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "start": {
+      "cache": false
+    }
+  }
+}

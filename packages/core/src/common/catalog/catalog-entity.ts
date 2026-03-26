@@ -8,7 +8,6 @@ import type TypedEmitter from "typed-emitter";
 import { observable, makeObservable } from "mobx";
 import { once } from "lodash";
 import type { Disposer, StrictReactNode } from "@openlens/utilities";
-import { iter } from "@openlens/utilities";
 import type { CategoryColumnRegistration, TitleCellProps } from "../../renderer/components/catalog/custom-category-columns";
 
 export type { CategoryColumnRegistration, TitleCellProps };
@@ -222,13 +221,13 @@ export abstract class CatalogCategory extends (EventEmitter as new () => TypedEm
    * @returns filtered menu items
    */
   public filteredItems(menuItems: CatalogEntityAddMenu[]) {
-    return Array.from(
-      iter.reduce(
-        this.filters,
-        iter.filter,
-        menuItems.values(),
-      ),
-    );
+    let filtered = menuItems;
+
+    for (const filter of this.filters) {
+      filtered = filtered.filter(filter);
+    }
+
+    return filtered;
   }
 }
 

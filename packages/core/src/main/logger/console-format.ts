@@ -44,7 +44,7 @@ export interface ConsoleFormatOptions {
 
 interface TransformableInfo {
   level: string;
-  message: string;
+  message: unknown;
   [key: string | symbol]: any;
 }
 
@@ -76,7 +76,7 @@ export class ConsoleFormat {
   }
 
   private message(info: TransformableInfo, chr: string, color: string): string {
-    const message = info.message.replace(
+    const message = String(info.message).replace(
       ConsoleFormat.reSpacesOrEmpty,
       `$1${color}${chalk.dim(chr)}${chalk.reset(" ")}`,
     );
@@ -84,8 +84,8 @@ export class ConsoleFormat {
     return `${info.level}:${message}`;
   }
 
-  private pad(message?: string): string {
-    return message?.match(ConsoleFormat.reSpaces)?.[0] ?? "";
+  private pad(message: unknown): string {
+    return String(message).match(ConsoleFormat.reSpaces)?.[0] ?? "";
   }
 
   private ms(info: TransformableInfo): string {

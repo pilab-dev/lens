@@ -2,7 +2,6 @@
  * Copyright (c) OpenLens Maintainers. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
-import { iter } from "@openlens/utilities";
 import { getInjectable } from "@ogre-tools/injectable";
 import assert from "assert";
 import { action } from "mobx";
@@ -24,7 +23,7 @@ const removeHotbarInjectable = getInjectable({
       state.delete(hotbar.id);
 
       if (activeHotbarId.get() === hotbar.id) {
-        activeHotbarId.set(iter.first(state.values())?.id);
+        activeHotbarId.set([...state.values()][0]?.id);
       }
     });
   },

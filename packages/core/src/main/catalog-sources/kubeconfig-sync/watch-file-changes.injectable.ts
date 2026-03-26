@@ -14,7 +14,7 @@ import statInjectable from "../../../common/fs/stat.injectable";
 import type { Watcher } from "../../../common/fs/watch/watch.injectable";
 import watchInjectable from "../../../common/fs/watch/watch.injectable";
 import type { Disposer } from "@openlens/utilities";
-import { getOrInsertWith, iter } from "@openlens/utilities";
+import { getOrInsertWith } from "@openlens/utilities";
 import diffChangedKubeconfigInjectable from "./diff-changed-kubeconfig.injectable";
 import kubeconfigSyncLoggerInjectable from "./logger.injectable";
 
@@ -51,7 +51,17 @@ const watchKubeconfigFileChangesInjectable = getInjectable({
 
     return (filePath) => {
       const rootSource = observable.map<string, ObservableMap<string, [Cluster, CatalogEntity]>>();
-      const derivedSource = computed(() => Array.from(iter.flatMap(rootSource.values(), from => iter.map(from.values(), child => child[1]))));
+      const derivedSource = computed(() => {
+        const entities: CatalogEntity[] = [];
+
+        for (const from of rootSource.values()) {
+          for (const child of from.values()) {
+            entities.push(child[1]);
+          }
+        }
+
+        return entities;
+      });
 
       let watcher: Watcher<true>;
 

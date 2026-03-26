@@ -22,6 +22,7 @@
     "node-fetch": "^3.3.0"
   },
   "devDependencies": {
+    "@openlens/webpack": "workspace:*",
     "rimraf": "^4.4.1"
   }
 }

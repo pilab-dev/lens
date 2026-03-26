@@ -40,7 +40,7 @@ export class ShowMetricsSetting extends React.Component<ShowMetricsSettingProps>
   }
 
   renderMetrics() {
-    const metrics = Array.from(this.hiddenMetrics);
+    const metrics = Array.from(this.hiddenMetrics) as string[];
 
     if (!metrics.length) {
       return (

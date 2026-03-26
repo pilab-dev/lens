@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "@openlens/eslint-config": "^6.5.0",
-    "@openlens/webpack": "^6.5.0"
+    "@openlens/webpack": "workspace:*"
   }
 }

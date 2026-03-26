@@ -38,17 +38,19 @@ class NonInjectedClusterPrometheusSetting extends React.Component<ClusterPrometh
   readonly loadedOptions = observable.map<string, MetricProviderInfo>();
 
   @computed get options(): SelectOption<ProviderValue>[] {
+    const loadedOptions = [...this.loadedOptions.entries()].map(([id, provider]) => ({
+      value: id,
+      label: provider.name,
+      isSelected: id === this.selectedOption,
+    }));
+
     return [
       {
         value: autoDetectPrometheus,
         label: "Auto Detect Prometheus",
         isSelected: autoDetectPrometheus === this.selectedOption,
       },
-      ...Array.from(this.loadedOptions, ([id, provider]) => ({
-        value: id,
-        label: provider.name,
-        isSelected: id === this.selectedOption,
-      })),
+      ...loadedOptions,
     ];
   }
 

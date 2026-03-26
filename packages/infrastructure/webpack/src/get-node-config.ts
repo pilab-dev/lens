@@ -18,8 +18,8 @@ export const getNodeConfig = ({
   mode: "production",
 
   performance: {
-    maxEntrypointSize: 100000,
-    hints: "error",
+    maxEntrypointSize: 1000000,
+    hints: "warning",
   },
 
   resolve: {

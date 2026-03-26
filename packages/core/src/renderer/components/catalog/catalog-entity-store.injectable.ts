@@ -37,7 +37,7 @@ const catalogEntityStoreInjectable = getInjectable({
       return category
         ? catalogEntityRegistry.getItemsForCategory(category, { filtered: true })
         : catalogEntityRegistry.filteredItems;
-    });
+    }) as unknown as IComputedValue<CatalogEntity[]>;
     const loadAll = () => {
       const category = activeCategory.get();
 

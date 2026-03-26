@@ -1,3 +1,6 @@
 {
-  "extends": "@openlens/typescript/config/base.json"
+  "extends": "@openlens/typescript/config/base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  }
 }

@@ -10,7 +10,7 @@ import type { Cluster } from "../../../common/cluster/cluster";
 import { getDiForUnitTesting } from "../../getDiForUnitTesting";
 import directoryForUserDataInjectable from "../../../common/app-paths/directory-for-user-data/directory-for-user-data.injectable";
 import directoryForTempInjectable from "../../../common/app-paths/directory-for-temp/directory-for-temp.injectable";
-import { iter, strictGet } from "@openlens/utilities";
+import { strictGet } from "@openlens/utilities";
 import type { ComputeKubeconfigDiff } from "../kubeconfig-sync/compute-diff.injectable";
 import computeKubeconfigDiffInjectable from "../kubeconfig-sync/compute-diff.injectable";
 import type { ConfigToModels } from "../kubeconfig-sync/config-to-models.injectable";
@@ -148,7 +148,8 @@ describe("kubeconfig-sync.source tests", () => {
       expect(rootSource.size).toBe(1);
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const c = (iter.first(rootSource.values())!)[0];
+      const values = [...rootSource.values()];
+      const c = (values[0]!)[0];
 
       runInAction(() => {
         expect(c.kubeConfigPath.get()).toBe("/bar");

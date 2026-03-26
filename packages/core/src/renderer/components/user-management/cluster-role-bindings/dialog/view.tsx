@@ -96,11 +96,11 @@ class NonInjectedClusterRoleBindingDialog extends React.Component<ClusterRoleBin
       kind: "ServiceAccount" as const,
       namespace: sa.getNs(),
     }));
-    const users = Array.from(this.selectedUsers, user => ({
+    const users = Array.from(this.selectedUsers, (user: string): Subject => ({
       name: user,
       kind: "User" as const,
     }));
-    const groups = Array.from(this.selectedGroups, group => ({
+    const groups = Array.from(this.selectedGroups, (group: string): Subject => ({
       name: group,
       kind: "Group" as const,
     }));
@@ -223,7 +223,7 @@ class NonInjectedClusterRoleBindingDialog extends React.Component<ClusterRoleBin
           placeholder="Bind to User Account ..."
           add={(newUser) => this.selectedUsers.add(newUser)}
           items={Array.from(this.selectedUsers)}
-          remove={({ oldItem }) => this.selectedUsers.delete(oldItem)}
+          remove={({ oldItem }) => this.selectedUsers.delete(oldItem as string)}
         />
 
         <b>Groups</b>
@@ -231,7 +231,7 @@ class NonInjectedClusterRoleBindingDialog extends React.Component<ClusterRoleBin
           placeholder="Bind to User Group ..."
           add={(newGroup) => this.selectedGroups.add(newGroup)}
           items={Array.from(this.selectedGroups)}
-          remove={({ oldItem }) => this.selectedGroups.delete(oldItem)}
+          remove={({ oldItem }) => this.selectedGroups.delete(oldItem as string)}
         />
 
         <b>Service Accounts</b>

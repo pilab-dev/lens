@@ -46,9 +46,11 @@
   },
   "devDependencies": {
     "@async-fn/jest": "^1.6.4",
-    "@openlens/typescript": "^6.5.0",
+    "@openlens/typescript": "workspace:*",
     "@ogre-tools/injectable-extension-for-auto-registration": "^16.1.0",
     "@ogre-tools/test-utils": "^16.1.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/lodash": "^4.17.13",
     "ts-node": "^10.9.1",
     "webpack-node-externals": "^3.0.0"
   },
