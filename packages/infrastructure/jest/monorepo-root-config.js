@@ -48,8 +48,8 @@ const toJestMultiProjectConfig = (
 
 const getJestConfigsAndPackageJsons = (rootDir) => {
   const packageJsonPaths = glob
-    .sync(`${rootDir}/packages/**/jest.config.js`, {
-      ignore: "./**/node_modules/**/*",
+    .sync(`{${rootDir}/packages/**,${rootDir}/open-lens}/jest.config.js`, {
+      ignore: ["**/node_modules/**/*", "**/dist/**/*", "**/static/**/*"],
     })
     .map((filePath) => path.dirname(filePath));
 

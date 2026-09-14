@@ -23,6 +23,7 @@
     "compute-versions": "node ./build/compute-versions.mjs",
     "prebuild": "test -f ./build/versions.json && echo 'Versions already exist' || node ./build/compute-versions.mjs",
     "build": "lens-webpack-build",
+    "clean": "rimraf dist/",
     "dev": "webpack --mode=development --watch",
     "test": "jest --coverage --runInBand"
   },

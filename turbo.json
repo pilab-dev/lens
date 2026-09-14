@@ -1,22 +1,31 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": ["**/.env.*local", "tsconfig.json"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT", "tsconfig.json", "tsconfig/**/*.json", "src/**"],
-      "outputs": ["dist/**", "build/**", "static/**", "lib/**", "coverage/**"]
+      "inputs": ["$TURBO_DEFAULT", "tsconfig.json", "tsconfig/**/*.json", "src/**", "index.ts", "webpack.config.*", ".swcrc"],
+      "outputs": ["dist/**", "build/**", "static/build/**", "lib/**"]
     },
     "build:app": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "static/build/**"]
     },
     "build:docs": {
       "dependsOn": ["^build"]
     },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
     "test:unit": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT", "src/**", "jest.config.*"],
+      "inputs": ["$TURBO_DEFAULT", "src/**", "jest.config.*", ".swcrc"],
       "outputs": ["coverage/**"]
+    },
+    "test:unit:watch": {
+      "cache": false,
+      "interactive": true
     },
     "test:integration": {
       "dependsOn": ["^build"],
@@ -24,16 +33,18 @@
       "outputs": ["coverage/**"]
     },
     "lint": {
-      "dependsOn": ["^build"]
+      "inputs": ["$TURBO_DEFAULT", ".eslintrc*", ".prettierrc*"]
     },
     "lint:fix": {
-      "dependsOn": ["^build"]
+      "inputs": ["$TURBO_DEFAULT", ".eslintrc*", ".prettierrc*"],
+      "cache": false
     },
     "clean": {
       "cache": false
     },
     "start": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     }
   }
 }

@@ -44,7 +44,7 @@ const renderer: webpack.Configuration = {
     assetModuleFilename: `${assetsFolderName}/[name][ext][query]`,
   },
   watchOptions: {
-    ignored: /node_modules/, // https://webpack.js.org/configuration/watch/
+    ignored: /node_modules\/(?!@openlens)/, // https://webpack.js.org/configuration/watch/
   },
   ignoreWarnings: [
     /Critical dependency: the request of a dependency is an expression/,

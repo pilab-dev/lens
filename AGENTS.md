@@ -19,8 +19,8 @@ pnpm run clean                # Clean all build artifacts
 
 ### Lint Commands
 ```bash
-pnpm run lint                 # Lint all packages (lerna run lint)
-pnpm run lint:fix             # Auto-fix linting issues
+pnpm run lint                 # Lint all packages via Turborepo
+pnpm run lint:fix             # Auto-fix linting issues via Turborepo
 ```
 
 ### Test Commands

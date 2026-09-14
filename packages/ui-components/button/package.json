@@ -29,6 +29,7 @@
   "homepage": "https://github.com/Open-Lens/app",
   "scripts": {
     "build": "lens-webpack-build",
+    "clean": "rimraf dist/",
     "lint": "lens-lint",
     "lint:fix": "lens-lint --fix"
   },
