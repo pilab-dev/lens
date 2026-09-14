@@ -1,14 +1,14 @@
-import { getInjectionToken } from "@ogre-tools/injectable";
+import { getInjectionToken, InjectionToken } from "@ogre-tools/injectable";
 import type { Runnable } from "@openlens/run-many";
 
-export const beforeApplicationIsLoadingInjectionToken = getInjectionToken<Runnable>({
+export const beforeApplicationIsLoadingInjectionToken: InjectionToken<Runnable, void> = getInjectionToken<Runnable>({
   id: "before-application-is-loading-injection-token",
 });
 
-export const onLoadOfApplicationInjectionToken = getInjectionToken<Runnable>({
+export const onLoadOfApplicationInjectionToken: InjectionToken<Runnable, void> = getInjectionToken<Runnable>({
   id: "on-load-of-application",
 });
 
-export const afterApplicationIsLoadedInjectionToken = getInjectionToken<Runnable>({
+export const afterApplicationIsLoadedInjectionToken: InjectionToken<Runnable, void> = getInjectionToken<Runnable>({
   id: "after-application-is-loaded-injection-token",
 });

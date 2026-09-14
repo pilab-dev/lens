@@ -49,6 +49,7 @@ class NonInjectedKubeconfigSync extends React.Component<Dependencies> {
 
     for (const [filePath] of this.props.state.syncKubeconfigEntries) {
       const result = await this.props.discoverKubeconfigSyncKind(filePath);
+
       mapEntries.push(result);
     }
 

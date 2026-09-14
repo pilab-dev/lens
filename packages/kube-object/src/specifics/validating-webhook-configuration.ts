@@ -7,8 +7,11 @@ import type { KubeJsonApiData, KubeObjectMetadata, KubeObjectScope, NamespaceSco
 import { KubeObject } from "../kube-object";
 import type { Webhook } from "./mutating-webhook-configuration";
 
-export interface ValidatingWebhookConfigurationData
-  extends KubeJsonApiData<KubeObjectMetadata<KubeObjectScope.Namespace>, void, void> {
+export interface ValidatingWebhookConfigurationData extends KubeJsonApiData<
+  KubeObjectMetadata<KubeObjectScope.Namespace>,
+  void,
+  void
+> {
   webhooks?: Webhook[];
 }
 

@@ -20,7 +20,7 @@ const setupSyncingOfWiklinksInjectable = getInjectable({
 
       weblinkVerificationStartableStoppable.start();
       catalogEntityRegistry.addComputedSource("weblinks", computed(() =>
-        [...weblinkVerifications.values()].map(([weblink]) => weblink)
+        [...weblinkVerifications.values()].map(([weblink]) => weblink),
       ));
     },
   }),

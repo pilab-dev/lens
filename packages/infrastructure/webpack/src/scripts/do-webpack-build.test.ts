@@ -93,7 +93,7 @@ describe("do-webpack-build", () => {
         });
 
         it("logs a warning", () => {
-          expect(logWarningMock).toBeCalledWith("Warning while executing \"linkable-push\": some-other-stderr");
+          expect(logWarningMock).toHaveBeenCalledWith("Warning while executing \"linkable-push\": some-other-stderr");
         });
       });
 
@@ -128,7 +128,7 @@ describe("do-webpack-build", () => {
       });
 
       it("logs a warning", () => {
-        expect(logWarningMock).toBeCalledWith("Warning while executing \"webpack\": some-stderr");
+        expect(logWarningMock).toHaveBeenCalledWith("Warning while executing \"webpack\": some-stderr");
       });
     });
 

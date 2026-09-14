@@ -7,7 +7,7 @@ module.exports = {
     "prettier",
     "plugin:security/recommended",
     "plugin:xss/recommended",
-    "plugin:no-unsanitized/DOM"
+    "plugin:no-unsanitized/recommended-legacy"
   ],
   plugins: [
     "unused-imports",
@@ -86,6 +86,8 @@ module.exports = {
           },
         ],
         "import/no-extraneous-dependencies": "off",
+        "import/no-named-as-default-member": "off",
+        "import/no-named-as-default": "off",
         "jsx-a11y/no-redundant-roles": ["off"],
         "no-restricted-syntax": [
           "error",

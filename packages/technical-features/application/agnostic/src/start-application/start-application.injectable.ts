@@ -1,15 +1,15 @@
-/* eslint-disable prettier/prettier */
-import { getInjectable, getInjectionToken } from "@ogre-tools/injectable";
+import { getInjectable, getInjectionToken, Injectable, InjectionToken } from "@ogre-tools/injectable";
 import { runManyFor } from "@openlens/run-many";
 import * as timeSlots from "./time-slots";
 
 export type StartApplication = () => Promise<void>;
 
-export const startApplicationInjectionToken = getInjectionToken<StartApplication>({
-  id: "start-application-injection-token",
-});
+export const startApplicationInjectionToken: InjectionToken<StartApplication, void> =
+  getInjectionToken<StartApplication>({
+    id: "start-application-injection-token",
+  });
 
-const startApplicationInjectable = getInjectable({
+const startApplicationInjectable: Injectable<StartApplication, unknown, void> = getInjectable({
   id: "start-application",
 
   instantiate: (di): StartApplication => {

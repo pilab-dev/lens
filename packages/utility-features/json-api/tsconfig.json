@@ -1,6 +1,7 @@
 {
   "extends": "@openlens/typescript/config/base.json",
   "include": ["**/*.ts"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "moduleResolution": "node"
   }

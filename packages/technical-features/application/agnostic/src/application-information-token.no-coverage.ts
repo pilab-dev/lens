@@ -2,7 +2,7 @@
  * Copyright (c) OpenLens Maintainers. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
-import { getInjectionToken } from "@ogre-tools/injectable";
+import { getInjectionToken, InjectionToken } from "@ogre-tools/injectable";
 
 export type ApplicationInformation = {
   name: string;
@@ -20,6 +20,7 @@ export type ApplicationInformation = {
   dependencies: Partial<Record<string, string>>;
 };
 
-export const applicationInformationToken = getInjectionToken<ApplicationInformation>({
-  id: "application-information-token",
-});
+export const applicationInformationToken: InjectionToken<ApplicationInformation, void> =
+  getInjectionToken<ApplicationInformation>({
+    id: "application-information-token",
+  });

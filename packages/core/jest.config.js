@@ -1,1 +1,5 @@
+/**
+ * Copyright (c) OpenLens Maintainers. All rights reserved.
+ * Licensed under MIT License. See LICENSE in root directory for more information.
+ */
 module.exports = require("./package.json").jest;

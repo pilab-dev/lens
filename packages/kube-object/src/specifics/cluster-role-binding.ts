@@ -8,8 +8,11 @@ import { KubeObject } from "../kube-object";
 import type { RoleRef } from "../types/role-ref";
 import type { Subject } from "../types/subject";
 
-export interface ClusterRoleBindingData
-  extends KubeJsonApiData<KubeObjectMetadata<KubeObjectScope.Cluster>, void, void> {
+export interface ClusterRoleBindingData extends KubeJsonApiData<
+  KubeObjectMetadata<KubeObjectScope.Cluster>,
+  void,
+  void
+> {
   subjects?: Subject[];
   roleRef: RoleRef;
 }

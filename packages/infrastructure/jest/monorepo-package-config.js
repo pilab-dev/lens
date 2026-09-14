@@ -14,7 +14,8 @@ module.exports = (rootDir) => {
     coverageReporters: ["lcov"],
     collectCoverage: true,
     testMatch: ["**/?(*.)+(test).{js,ts,tsx}"],
-    watchPathIgnorePatterns: ["/node_modules/", "/coverage/", "/build/"],
+    watchPathIgnorePatterns: ["/node_modules/", "/coverage/", "/build/", "/dist/"],
+    modulePathIgnorePatterns: ["<rootDir>/dist/"],
 
     collectCoverageFrom: [
       "<rootDir>/src/**/*.{ts,tsx}",

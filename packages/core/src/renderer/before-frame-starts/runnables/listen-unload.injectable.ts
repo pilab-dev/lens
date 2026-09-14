@@ -35,6 +35,7 @@ const listenUnloadInjectable = getInjectable({
         const rootElem = document.getElementById("app");
 
         if (rootElem) {
+          // eslint-disable-next-line react/no-deprecated
           unmountComponentAtNode(rootElem);
         }
       });

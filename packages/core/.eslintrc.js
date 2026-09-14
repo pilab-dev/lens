@@ -255,6 +255,9 @@ module.exports = {
         "react-hooks/exhaustive-deps": "off",
         "no-template-curly-in-string": "error",
         "@typescript-eslint/consistent-type-imports": "error",
+        "import/no-named-as-default-member": "off",
+        "import/no-named-as-default": "off",
+        "react/no-deprecated": "off",
       },
     },
     {

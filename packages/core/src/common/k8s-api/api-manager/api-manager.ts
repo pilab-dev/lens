@@ -77,6 +77,7 @@ export class ApiManager {
           return api;
         }
       }
+
       return undefined;
     }
 

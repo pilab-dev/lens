@@ -22,7 +22,8 @@
   "homepage": "https://github.com/Open-Lens/app",
   "scripts": {
     "clean": "rimraf dist/",
-    "build": "lens-webpack-build",
+    "build": "esbuild index.ts --bundle --platform=node --target=es2019 --outfile=dist/index.js --packages=external && tsc -p tsconfig.json --declaration --emitDeclarationOnly --outDir dist",
+    "dev": "esbuild index.ts --bundle --platform=node --target=es2019 --outfile=dist/index.js --packages=external --watch",
     "test:unit": "jest --coverage --runInBand",
     "lint": "lens-lint",
     "lint:fix": "lens-lint --fix"

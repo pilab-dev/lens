@@ -153,8 +153,11 @@ export interface ServiceReference {
   port?: number | string;
 }
 
-export interface MutatingWebhookConfigurationData
-  extends KubeJsonApiData<KubeObjectMetadata<KubeObjectScope.Namespace>, void, void> {
+export interface MutatingWebhookConfigurationData extends KubeJsonApiData<
+  KubeObjectMetadata<KubeObjectScope.Namespace>,
+  void,
+  void
+> {
   webhooks?: Webhook[];
 }
 

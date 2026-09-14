@@ -147,8 +147,8 @@ describe("kubeconfig-sync.source tests", () => {
 
       expect(rootSource.size).toBe(1);
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const values = [...rootSource.values()];
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const c = (values[0]!)[0];
 
       runInAction(() => {

@@ -44,5 +44,6 @@
     }
   },
 
-  "include": ["./styles.d.ts"]
+  "include": ["./styles.d.ts"],
+  "exclude": ["dist", "node_modules"]
 }

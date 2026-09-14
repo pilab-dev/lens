@@ -3,7 +3,8 @@
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
 import { getInjectable } from "@ogre-tools/injectable";
-import extensionInjectable, { Extension } from "../../../../extensions/extension-loader/extension/extension.injectable";
+import type { Extension } from "../../../../extensions/extension-loader/extension/extension.injectable";
+import extensionInjectable from "../../../../extensions/extension-loader/extension/extension.injectable";
 import extensionsInjectable from "../../../../extensions/extensions.injectable";
 import { onQuitOfBackEndInjectionToken } from "../../../../main/start-main-application/runnable-tokens/phases";
 import type { LegacyLensExtension } from "@openlens/legacy-extensions";
